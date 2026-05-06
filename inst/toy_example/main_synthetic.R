@@ -58,11 +58,11 @@ seed <- 2026
 set.seed(seed)
 VFolds <- 3 # folds to split data
 synthetic_scenario <- TRUE
-type <- "normal" # additional name for images (here: type of synthetic scenario)
+type <- "complex" # additional name for images (here: type of synthetic scenario)
 is_RCT <- FALSE
 RCT_file<- ifelse(is_RCT==TRUE,"RCT/", "non_RCT/")
 n_samples <- c(6000, 12000, 18000)
-ncov <- 4
+ncov <- ifelse(type=="normal",4, 2)
 n_test <- 50
 
 random_rate <- seq(0,1,0.1) # random rates to test
@@ -97,7 +97,8 @@ for (n in n_samples){
     select(starts_with("Potential_outcomes."))
 
   # ── Define data parameters  ─────────────────────────────────────────────────
-  covariates_name <- c("X1","X2", "X3", "X4") # name for covariates in dataset
+  covariates_name <- if(type=="normal"){
+    c("X1","X2", "X3", "X4")}else{c("X1","X2")}# name for covariates in dataset
   X <- SL.out$df_obs[,covariates_name] %>% as.matrix()
   X_new <- SL.out$df_new_sample[,covariates_name] %>% as.matrix()
 
@@ -125,6 +126,7 @@ for (n in n_samples){
     q_learners <- list() %>%
       add_qlearner(name = "drql_lm", type = "drql",   q_func = "q_glm",
                    action_name=treatment_name, covariates=covariates_name)
+    
 
     #### Define the propensity score learner (G-model)
     g_learner <- glearner(m, g_func = "g_rf", sl_library = NULL, num.trees = 500)

@@ -390,7 +390,7 @@ spv_Y_xi_plot <- ggplot2::ggplot(spv_data %>% filter(level==level_choice),
   ) +
   ggplot2::labs(x = expression("Set policy value ("* Y *")"),
                 y = expression("Set policy value ("* xi *")"),
-                color = "Legend") +
+                color = "Legend", shape="Choice") +
   ggplot2::theme(
     axis.title = ggplot2::element_text(size = 25),
     legend.title = ggplot2::element_text(size = 25), 
@@ -495,7 +495,7 @@ for (t in 1:dim(heatmaps_r)[5]){
                                         nrow = 1, ncol = 1)
   ggplot2::ggsave(
     filename = paste0("inst/images/", "Heatmap_", names_experts[t], "_", type, ".pdf"),
-    multi_page, width = 30, height = 15)
+    multi_page, width = 15, height = 8)
 }
 
 plot_spv_level_error_bars_Y <- ggplot2::ggplot(spv_data,
