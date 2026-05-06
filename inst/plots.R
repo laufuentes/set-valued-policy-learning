@@ -215,13 +215,15 @@ spv_plot <- ggplot2::ggplot(spv_data,
                 y = "Set policy value (SPV)",
                 color = "Legend") +
   ggplot2::theme(
-    axis.title = ggplot2::element_text(size = 16),
-    legend.title = ggplot2::element_text(size = 16), 
-    legend.text = ggplot2::element_text(size = 14))
+    axis.title = ggplot2::element_text(size = 18),
+    legend.title = ggplot2::element_text(size = 18), 
+    legend.text = ggplot2::element_text(size = 16), 
+    strip.text = ggplot2::element_text(size = 16), 
+    legend.key.size = ggplot2::unit(1, "cm"))
 
 ggplot2::ggsave(spv_plot,
                 filename=paste0("inst/images/spv_plot_",type,".pdf"),
-                width = 30, height = 15)
+                width = 15, height = 8)
 
 # Mean cardinality plot for varying levels of confidence (alpha)
 mean_cardinality_plot <- ggplot2::ggplot(data=mean_cardinality_data,
@@ -252,13 +254,15 @@ mean_cardinality_plot <- ggplot2::ggplot(data=mean_cardinality_data,
   ggplot2::labs(x = expression("Confidence level ("* alpha *")"),
                 y = "Mean cardinality") +
   ggplot2::theme(
-    axis.title = ggplot2::element_text(size = 16),
-    legend.title = ggplot2::element_text(size = 16), 
-    legend.text = ggplot2::element_text(size = 14))
+    axis.title = ggplot2::element_text(size = 18),
+    legend.title = ggplot2::element_text(size = 18), 
+    legend.text = ggplot2::element_text(size = 16), 
+    strip.text = ggplot2::element_text(size = 16), 
+    legend.key.size = ggplot2::unit(1, "cm"))
 
 ggplot2::ggsave(mean_cardinality_plot,
                 filename=paste0("inst/images/width_boxplots_", type, ".pdf"),
-                width = 30, height = 15)
+                width = 15, height = 8)
 
 # Heatmap plot for different set-valued policy learning approaches
 # rows: observations
@@ -282,8 +286,11 @@ for (t in 1:dim(heatmaps_r)[5]){
              y = "Observations",
              fill = "Present")+
         ggplot2::theme(
-          axis.title = ggplot2::element_text(size = 16),
-          legend.title = ggplot2::element_text(size = 14))
+          axis.title = ggplot2::element_text(size = 18),
+          legend.title = ggplot2::element_text(size = 18), 
+          legend.text = ggplot2::element_text(size = 16), 
+          strip.text = ggplot2::element_text(size = 16), 
+          legend.key.size = ggplot2::unit(1, "cm"))
     }
     plots_completed[[i]] <- gridExtra::arrangeGrob(grobs = plots, nrow = 1, 
                                                    ncol = dim(heatmaps_r)[4], 
@@ -295,5 +302,5 @@ for (t in 1:dim(heatmaps_r)[5]){
   ggplot2::ggsave(
     filename = paste0("inst/images/", "Heatmap_", names_experts[t], 
                       "_", type, ".pdf"),
-    multi_page, width = 30, height = 15)
+    multi_page, width = 15, height = 8)
 }

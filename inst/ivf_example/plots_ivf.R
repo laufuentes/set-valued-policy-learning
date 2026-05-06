@@ -284,9 +284,11 @@ spv_plot <- ggplot2::ggplot(spv_data,
                                          y= value_Y,
                                          color = color_group)) +
   ggplot2::geom_line(ggplot2::aes(group = color_group),
-                     position = position_dodge(width = 0.75)) +
+                     position = position_dodge(width = 0.75),
+                     linewidth = 1.5) +
   ggplot2::geom_point(ggplot2::aes(group = color_group),
-                      position = position_dodge(width = 0.75)) +
+                      position = position_dodge(width = 0.75),
+                      size = 3) +
   ggplot2::geom_segment(data = hline_labels,
                         ggplot2::aes(x = x, xend = xend, y = y, yend = y, color="red"),
                         linetype = "dashed", linewidth = 1) +
@@ -307,9 +309,12 @@ spv_plot <- ggplot2::ggplot(spv_data,
                 y = "Set policy value (SPV)",
                 color = "Legend") +
   ggplot2::theme(
-    axis.title = ggplot2::element_text(size = 18),
-    legend.title = ggplot2::element_text(size = 18), 
-    legend.text = ggplot2::element_text(size = 16))
+    axis.title = ggplot2::element_text(size = 25),
+    legend.title = ggplot2::element_text(size = 25), 
+    legend.text = ggplot2::element_text(size = 20),
+    legend.key.size = ggplot2::unit(1.5, "cm"),
+    axis.text = ggplot2::element_text(size = 20),
+    strip.text = ggplot2::element_text(size = 20))
 
 ggplot2::ggsave(spv_plot,
                 filename=paste0("inst/images/spv_plot_Y_",type,".pdf"),
@@ -326,9 +331,11 @@ spv_plot_xi <- ggplot2::ggplot(spv_data,
                                          y= value_xi,
                                          color = color_group)) +
   ggplot2::geom_line(ggplot2::aes(group = color_group),
-                     position = position_dodge(width = 0.75)) +
+                     position = position_dodge(width = 0.75),
+                     linewidth = 1.5) +
   ggplot2::geom_point(ggplot2::aes(group = color_group),
-                      position = position_dodge(width = 0.75)) +
+                      position = position_dodge(width = 0.75),
+                      size = 3) +
   ggplot2::geom_segment(data = hline_labels_xi,
                         ggplot2::aes(x = x, xend = xend, y = y, yend = y, color="red"),
                         linetype = "dashed", linewidth = 1) +
@@ -349,9 +356,12 @@ spv_plot_xi <- ggplot2::ggplot(spv_data,
                 y = "Set policy value (SPV)",
                 color = "Legend") +
   ggplot2::theme(
-    axis.title = ggplot2::element_text(size = 18),
-    legend.title = ggplot2::element_text(size = 18), 
-    legend.text = ggplot2::element_text(size = 16))
+    axis.title = ggplot2::element_text(size = 25),
+    legend.title = ggplot2::element_text(size = 25), 
+    legend.text = ggplot2::element_text(size = 20),
+    legend.key.size = ggplot2::unit(1.5, "cm"),
+    axis.text = ggplot2::element_text(size = 20),
+    strip.text = ggplot2::element_text(size = 20))
 
 ggplot2::ggsave(spv_plot_xi,
                 filename=paste0("inst/images/spv_plot_xi_",type,".pdf"),
@@ -382,9 +392,12 @@ spv_Y_xi_plot <- ggplot2::ggplot(spv_data %>% filter(level==level_choice),
                 y = expression("Set policy value ("* xi *")"),
                 color = "Legend") +
   ggplot2::theme(
-    axis.title = ggplot2::element_text(size = 18),
-    legend.title = ggplot2::element_text(size = 18), 
-    legend.text = ggplot2::element_text(size = 16))
+    axis.title = ggplot2::element_text(size = 25),
+    legend.title = ggplot2::element_text(size = 25), 
+    legend.text = ggplot2::element_text(size = 20),
+    legend.key.size = ggplot2::unit(1.5, "cm"),
+    axis.text = ggplot2::element_text(size = 20),
+    strip.text = ggplot2::element_text(size = 20))
 
 ggplot2::ggsave(spv_Y_xi_plot,
                 filename=paste0("inst/images/spv_plot_Yxi_",type,".pdf"),
@@ -394,13 +407,14 @@ ggplot2::ggsave(spv_Y_xi_plot,
 mean_cardinality_plot <- ggplot2::ggplot(data=mean_cardinality_data,
                                    ggplot2::aes(x=factor(levels), y=value,
                                                 color=color_group))+
-  ggplot2::geom_line(aes(group=color_group), alpha=0.5)+
+  ggplot2::geom_line(aes(group=color_group), alpha=0.5, linewidth = 1.5 )+
   ggplot2::geom_point(data=mean_cardinality_data%>% filter(mechanism=="Unweighted"),
                       aes(x=factor(levels), y=value,
-                          color=color_group, group=color_group))+
+                          color=color_group, group=color_group), size = 3)+
   ggplot2::geom_point(data = mean_cardinality_data%>% filter(mechanism=="GLB"),
                       aes(x=factor(levels), y=value,
-                          color=color_group, group=color_group), shape=4)+
+                          color=color_group, group=color_group), shape = 4, 
+                      size = 3)+
   ggplot2::scale_color_manual(
     name = "Technique",
     values = c(
@@ -416,13 +430,16 @@ mean_cardinality_plot <- ggplot2::ggplot(data=mean_cardinality_data,
   ggplot2::labs(x = expression("Confidence level ("* alpha *")"),
                 y = "Mean cardinality") +
   ggplot2::theme(
-    axis.title = ggplot2::element_text(size = 18),
-    legend.title = ggplot2::element_text(size = 18), 
-    legend.text = ggplot2::element_text(size = 16))
+    axis.title = ggplot2::element_text(size = 25),
+    legend.title = ggplot2::element_text(size = 25), 
+    legend.text = ggplot2::element_text(size = 20),
+    legend.key.size = ggplot2::unit(1.5, "cm"),
+    axis.text = ggplot2::element_text(size = 20),
+    strip.text = ggplot2::element_text(size = 20))
 
 ggplot2::ggsave(mean_cardinality_plot,
                 filename=paste0("inst/images/width_boxplots_", type, ".pdf"),
-                width = 30, height = 15)
+                width = 15, height = 8)
 
 # Heatmap plot for different set-valued policy learning approaches
 # rows: observations
@@ -449,11 +466,19 @@ for (t in 1:dim(heatmaps_r)[5]){
         ggplot2::labs(title = paste0("r= ", random_rate[r]),
              x = "Treatment levels",
              y = "Observations",
-             fill = "Present")+ 
+             fill = "Status")+ 
+        ggplot2::scale_fill_discrete(
+          name = "Status", 
+          labels = c("Not included", "Included")) +
         ggplot2::theme(
-          axis.title = ggplot2::element_text(size = 18),
-          legend.title = ggplot2::element_text(size = 18), 
-          legend.text = ggplot2::element_text(size = 16))
+          legend.title = ggplot2::element_text(size = 30), 
+          legend.text = ggplot2::element_text(size = 25),
+          legend.key.size = ggplot2::unit(2.5, "cm"),
+          axis.text.x = ggplot2::element_text(size = 25),
+          strip.text = ggplot2::element_text(size = 30),
+          plot.title = ggplot2::element_text(size = 35),
+          axis.title.x = ggplot2::element_text(size = 25),
+          axis.title.y = ggplot2::element_text(size = 25))
       
       if (r != 7) {
         p <- p + ggplot2::theme(legend.position = "none")
@@ -461,9 +486,13 @@ for (t in 1:dim(heatmaps_r)[5]){
       plots[[j]] <- p
       j <- j + 1
       }
-    plots_completed[[i]] <- gridExtra::arrangeGrob(grobs = plots, nrow = 1, ncol = 3, top = paste0("Alpha = ", alphas[i]))
+    plots_completed[[i]] <- gridExtra::arrangeGrob(grobs = plots, 
+                                                   nrow = 1, 
+                                                   ncol = 3, 
+                                                   top = paste0("Alpha = ", alphas[i]))
   }
-  multi_page <- gridExtra::marrangeGrob(grobs = plots_completed, nrow = 1, ncol = 1)
+  multi_page <- gridExtra::marrangeGrob(grobs = plots_completed, 
+                                        nrow = 1, ncol = 1)
   ggplot2::ggsave(
     filename = paste0("inst/images/", "Heatmap_", names_experts[t], "_", type, ".pdf"),
     multi_page, width = 30, height = 15)
@@ -474,15 +503,15 @@ plot_spv_level_error_bars_Y <- ggplot2::ggplot(spv_data,
                                                              y = value_Y,
                                                              color = color_group)) +
   ggplot2::geom_line(ggplot2::aes(group = color_group),
-                     position = position_dodge(width = 0.75)) +
+                     position = position_dodge(width = 0.75), linewidth = 1.5) +
   ggplot2::geom_point(ggplot2::aes(group = color_group),
-                      position = position_dodge(width = 0.75)) +
+                      position = position_dodge(width = 0.75), size = 3) +
   ggplot2::geom_segment(data = hline_labels,
                         ggplot2::aes(x = x, xend = xend, y = y, yend = y, color="red"),
                         linetype = "dashed", linewidth = 1) +
   geom_errorbar(aes(ymin = value_Y - sd_spv_Y, 
                     ymax = value_Y + sd_spv_Y,
-                    color = color_group))+
+                    color = color_group), position = position_dodge(0.75))+
   ggplot2::scale_color_manual(
     name = "Technique",
     values = c(
@@ -500,9 +529,12 @@ plot_spv_level_error_bars_Y <- ggplot2::ggplot(spv_data,
                 y = "Set policy value (SPV)",
                 color = "Legend") +
   ggplot2::theme(
-    axis.title = ggplot2::element_text(size = 18),
-    legend.title = ggplot2::element_text(size = 18), 
-    legend.text = ggplot2::element_text(size = 16))
+    axis.title = ggplot2::element_text(size = 25),
+    legend.title = ggplot2::element_text(size = 25), 
+    legend.text = ggplot2::element_text(size = 20),
+    legend.key.size = ggplot2::unit(1.5, "cm"),
+    axis.text = ggplot2::element_text(size = 20),
+    strip.text = ggplot2::element_text(size = 20))
 
 ggplot2::ggsave(plot_spv_level_error_bars_Y, filename=paste0("inst/images/Level_SPV_error_bars_Y_", type,".pdf"), width = 15, height = 8)
 
@@ -513,9 +545,9 @@ plot_spv_level_error_bars_xi <- ggplot2::ggplot(spv_data,
                                             y= value_xi,
                                             color = color_group)) +
   ggplot2::geom_line(ggplot2::aes(group = color_group),
-                     position = position_dodge(width = 0.75)) +
+                     position = position_dodge(width = 0.75), linewidth = 1.5) +
   ggplot2::geom_point(ggplot2::aes(group = color_group),
-                      position = position_dodge(width = 0.75)) +
+                      position = position_dodge(width = 0.75), size = 3) +
   ggplot2::geom_segment(data = hline_labels_xi,
                         ggplot2::aes(x = x, xend = xend, y = y, yend = y, 
                                      color="red"),
@@ -540,9 +572,14 @@ plot_spv_level_error_bars_xi <- ggplot2::ggplot(spv_data,
                 y = "Set policy value (SPV)",
                 color = "Legend") +
   ggplot2::theme(
-    axis.title = ggplot2::element_text(size = 18),
-    legend.title = ggplot2::element_text(size = 18), 
-    legend.text = ggplot2::element_text(size = 16))
+    axis.title = ggplot2::element_text(size = 25),
+    legend.title = ggplot2::element_text(size = 25), 
+    legend.text = ggplot2::element_text(size = 20),
+    legend.key.size = ggplot2::unit(1.5, "cm"),
+    axis.text = ggplot2::element_text(size = 20),
+    strip.text = ggplot2::element_text(size = 20))
 
-ggplot2::ggsave(plot_spv_level_error_bars_xi, filename=paste0("inst/images/Level_SPV_error_bars_xi_", type,".pdf"), width = 15, height = 8)
+ggplot2::ggsave(plot_spv_level_error_bars_xi, 
+                filename=paste0("inst/images/Level_SPV_error_bars_xi_", type,".pdf"), 
+                width = 15, height = 8)
 

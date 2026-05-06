@@ -278,9 +278,10 @@ hline_labels <- data.frame(
 plot_spv_level <- ggplot2::ggplot(plot_data,
                                   ggplot2::aes(x = level, y = mean_spv)) +
   ggplot2::geom_line(ggplot2::aes(group = interaction(mechanism, type), 
-                                  color = color_group), alpha = 0.7) +
+                                  color = color_group), alpha = 0.7, 
+                     linewidth=1.5) +
   ggplot2::geom_point(aes(color = color_group),
-                      alpha = 0.5) +
+                      alpha = 0.5, size=3) +
   ggplot2::geom_segment(
     data = hline_labels,
     ggplot2::aes(x = x, xend = xend, y = y, yend = y),
@@ -303,19 +304,22 @@ plot_spv_level <- ggplot2::ggplot(plot_data,
   ggplot2::labs(x = expression("Confidence level (" * alpha * ")"),
        y = "Set Policy Value (SPV)")+ 
   ggplot2::theme(
-    axis.title = ggplot2::element_text(size = 16),
-    legend.title = ggplot2::element_text(size = 16), 
-    legend.text = ggplot2::element_text(size = 14))
-ggplot2::ggsave(plot_spv_level, filename=paste0("inst/images/Level_SPV_", type,".pdf"), width = 15, height = 8)
+    axis.title = ggplot2::element_text(size = 18),
+    legend.title = ggplot2::element_text(size = 18), 
+    legend.text = ggplot2::element_text(size = 16), 
+    strip.text = ggplot2::element_text(size = 16), 
+    legend.key.size = ggplot2::unit(1, "cm"))
+ggplot2::ggsave(plot_spv_level, filename=paste0("inst/images/Level_SPV_", type,".pdf"), 
+                width = 15, height = 8)
 
 plot_cov_level <- ggplot2::ggplot(plot_data,
                                   ggplot2::aes(x = level,
                                   y = cov_mean)) +
   ggplot2::geom_line(data = subset(plot_data, mechanism == "Estimated labels"),
                      ggplot2::aes(group = type, color = color_group),
-                     alpha = 0.7) +
-  ggplot2::geom_point(ggplot2::aes(size = mean_cardinality, color = color_group),
-             alpha = 0.5, show.legend = c(size=FALSE)) +
+                     alpha = 0.7, linewidth=1.5) +
+  ggplot2::geom_point(ggplot2::aes(color = color_group),
+             alpha = 0.5, show.legend = c(size=FALSE), size=3) +
   ggplot2::scale_color_manual(
     name = "Technique",
     values = c(
@@ -335,17 +339,20 @@ plot_cov_level <- ggplot2::ggplot(plot_data,
   ggplot2::labs(x = expression("Confidence level (" * alpha * ")"),
        y = expression("Coverage attained")) + 
   ggplot2::theme(
-    axis.title = ggplot2::element_text(size = 16),
-    legend.title = ggplot2::element_text(size = 16), 
-    legend.text = ggplot2::element_text(size = 14))
-ggplot2::ggsave(plot_cov_level, filename=paste0("inst/images/Level_Coverage_", type,".pdf"), width = 15, height = 8)
+    axis.title = ggplot2::element_text(size = 18),
+    legend.title = ggplot2::element_text(size = 18), 
+    legend.text = ggplot2::element_text(size = 16), 
+    strip.text = ggplot2::element_text(size = 16), 
+    legend.key.size = ggplot2::unit(1, "cm"))
+ggplot2::ggsave(plot_cov_level, filename=paste0("inst/images/Level_Coverage_", type,".pdf"), 
+                width = 15, height = 8)
 
 plot_cov_factor_level <- ggplot2::ggplot(plot_data,
                                          ggplot2::aes(x = level, y = cov_factor,
                                   group = color_group, color=color_group)) +
-  ggplot2::geom_line(alpha = 0.7) +
-  ggplot2::geom_point(ggplot2::aes(size = mean_spv, color = color_group),
-             alpha = 0.5, show.legend = c(size=FALSE)) +
+  ggplot2::geom_line(alpha = 0.7, linewidth=1.5) +
+  ggplot2::geom_point(ggplot2::aes(color = color_group),
+             alpha = 0.5, show.legend = c(size=FALSE), size=3) +
   ggplot2::geom_hline(yintercept = 0, color="black")+
   ggplot2::scale_color_manual(
     name = "Technique",
@@ -366,9 +373,11 @@ plot_cov_factor_level <- ggplot2::ggplot(plot_data,
   ggplot2::labs(x = expression("Confidence level ("* alpha *")"),
        y = "Marginal coverage factor")+
   ggplot2::theme(
-    axis.title = ggplot2::element_text(size = 16),
-    legend.title = ggplot2::element_text(size = 16), 
-    legend.text = ggplot2::element_text(size = 14))
+    axis.title = ggplot2::element_text(size = 18),
+    legend.title = ggplot2::element_text(size = 18), 
+    legend.text = ggplot2::element_text(size = 16), 
+    strip.text = ggplot2::element_text(size = 16), 
+    legend.key.size = ggplot2::unit(1, "cm"))
 ggplot2::ggsave(plot_cov_factor_level, filename=paste0("inst/images/Level_cov_factor_", type,".pdf"), width = 15, height = 8)
 
 plot_width_spv <- ggplot2::ggplot(plot_data,
@@ -377,9 +386,9 @@ plot_width_spv <- ggplot2::ggplot(plot_data,
 
   ggplot2::geom_line(data = subset(plot_data, mechanism == "Estimated labels"),
                      ggplot2::aes(group = type, color = color_group),
-            alpha = 0.7) +
-  ggplot2::geom_point(ggplot2::aes(size = mean_cardinality, color = color_group),
-             alpha = 0.5, show.legend = c(size=FALSE)) +
+            alpha = 0.7, linewidth=1.5) +
+  ggplot2::geom_point(ggplot2::aes(color = color_group),
+             alpha = 0.5, show.legend = c(size=FALSE), size=3) +
   ggplot2::scale_color_manual(
     name = "Technique",
     values = c(
@@ -399,9 +408,11 @@ plot_width_spv <- ggplot2::ggplot(plot_data,
   ggplot2::labs(x = "Mean cardinality",
        y = "Set Policy Value (SPV)") + 
   ggplot2::theme(
-    axis.title = ggplot2::element_text(size = 16),
-    legend.title = ggplot2::element_text(size = 16), 
-    legend.text = ggplot2::element_text(size = 14))
+    axis.title = ggplot2::element_text(size = 18),
+    legend.title = ggplot2::element_text(size = 18), 
+    legend.text = ggplot2::element_text(size = 16), 
+    strip.text = ggplot2::element_text(size = 16), 
+    legend.key.size = ggplot2::unit(1, "cm"))
 ggplot2::ggsave(plot_width_spv, filename=paste0("inst/images/mean_cardinality_SPV_", type,".pdf"), width = 15, height = 8)
 
 plot_mean_level<- ggplot2::ggplot(plot_data,
@@ -409,8 +420,8 @@ plot_mean_level<- ggplot2::ggplot(plot_data,
                                   y = mean_cardinality,
                                   color = color_group)) +
   ggplot2::geom_line(ggplot2::aes(group = color_group),
-            alpha = 0.7) +
-  ggplot2::geom_point(ggplot2::aes(color = color_group),alpha = 0.5) +
+            alpha = 0.7, linewidth=1.5) +
+  ggplot2::geom_point(ggplot2::aes(color = color_group),alpha = 0.5, size=3) +
   ggplot2::scale_color_manual(
     name = "Technique",
     values = c(
@@ -428,10 +439,11 @@ plot_mean_level<- ggplot2::ggplot(plot_data,
   ggplot2::labs(x = expression("Confidence level ("* alpha *")"),
        y = "Mean cardinality")+  
   ggplot2::theme(
-    axis.title = ggplot2::element_text(size = 16),
-    legend.title = ggplot2::element_text(size = 16), 
-    legend.text = ggplot2::element_text(size = 14)
-    )
+    axis.title = ggplot2::element_text(size = 18),
+    legend.title = ggplot2::element_text(size = 18), 
+    legend.text = ggplot2::element_text(size = 16), 
+    strip.text = ggplot2::element_text(size = 16), 
+    legend.key.size = ggplot2::unit(1, "cm"))
 ggplot2::ggsave(plot_mean_level, filename=paste0("inst/images/mean_cardinality_level_", type,".pdf"), width = 15, height = 8)
 
 
@@ -463,9 +475,11 @@ plot_sythetic_scenario <- ggplot2::ggplot(df, ggplot2::aes(x = x, y = y,
       y = "X2",
       fill = "Optimal treatments") + 
   ggplot2::theme(
-    axis.title = ggplot2::element_text(size = 16),
-    legend.title = ggplot2::element_text(size = 16), 
-    legend.text = ggplot2::element_text(size = 14))
+    axis.title = ggplot2::element_text(size = 18),
+    legend.title = ggplot2::element_text(size = 18), 
+    legend.text = ggplot2::element_text(size = 16), 
+    strip.text = ggplot2::element_text(size = 16), 
+    legend.key.size = ggplot2::unit(1, "cm"))
 
 ggplot2::ggsave(plot_sythetic_scenario, 
                 filename=paste0("inst/images/Synthetic_data_", type,".pdf"), 
@@ -474,16 +488,17 @@ ggplot2::ggsave(plot_sythetic_scenario,
 plot_spv_level_error_bars <- ggplot2::ggplot(plot_data,
                                   ggplot2::aes(x = level, y = mean_spv)) +
   ggplot2::geom_line(ggplot2::aes(group = interaction(mechanism, type), 
-                                  color = color_group), alpha = 0.7) +
+                                  color = color_group), alpha = 0.7, 
+                     linewidth=1.5) +
   ggplot2::geom_point(aes(color = color_group),
-                      alpha = 0.5) +
+                      alpha = 0.5, size=3) +
   geom_errorbar(aes(ymin = mean_spv - sd_spv, 
                     ymax = mean_spv + sd_spv,
-                    color = color_group))+
+                    color = color_group), linewidth=1)+
   ggplot2::geom_segment(
     data = hline_labels,
     ggplot2::aes(x = x, xend = xend, y = y, yend = y),
-    color = "gray", linetype = "dashed", linewidth = 1) +
+    color = "gray", linetype = "dashed", linewidth=1.5) +
   ggplot2::scale_color_manual(
     name = "Technique",
     values = c(
@@ -502,7 +517,11 @@ plot_spv_level_error_bars <- ggplot2::ggplot(plot_data,
   ggplot2::labs(x = expression("Confidence level (" * alpha * ")"),
                 y = "Set Policy Value (SPV)")+ 
   ggplot2::theme(
-    axis.title = ggplot2::element_text(size = 16),
-    legend.title = ggplot2::element_text(size = 16), 
-    legend.text = ggplot2::element_text(size = 14))
-ggplot2::ggsave(plot_spv_level_error_bars, filename=paste0("inst/images/Level_SPV_error_bars", type,".pdf"), width = 15, height = 8)
+    axis.title = ggplot2::element_text(size = 18),
+    legend.title = ggplot2::element_text(size = 18), 
+    legend.text = ggplot2::element_text(size = 16), 
+    strip.text = ggplot2::element_text(size = 16), 
+    legend.key.size = ggplot2::unit(1, "cm"))
+ggplot2::ggsave(plot_spv_level_error_bars, 
+                filename=paste0("inst/images/Level_SPV_error_bars", type,".pdf"),
+                width = 15, height = 8)

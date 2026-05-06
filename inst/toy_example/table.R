@@ -11,7 +11,7 @@ test <-  SL.out$df_obs[SL.out$folds[[3]],]
 
 alpha <- 0.1
 # levels of noise
-r_levels <- c(1,3,6,11)
+r_levels <- c(1,3,6)
 cov_unif<- mean_width<- spv <- matrix(0, ncol = length(r_levels)+2)
 confidence_sets <- list()
 
@@ -100,20 +100,20 @@ for(c in 1:length(confidence_sets)) {
   prop_inclusion_type_treatment[, c] <- tapply(all_coverage, obs_types, mean)
 }
 treatment_labels <- sapply(types_optimal_treatment, function(x) {
-  paste0("$\\Pi^{*}(X)$ = \\{", paste(x, collapse = ", "), "\\}")
+  paste0("$\\Pi^{\\star}(X_{i})$ = \\{", paste(x, collapse = ", "), "\\}")
 })
 
 library(xtable)
 results_df <- as.data.frame(prop_inclusion_type_treatment)
-colnames(results_df) <- c("Oracular CP", 
+colnames(results_df) <- c("OCP", 
                           apply(data.frame(1:length(r_levels)), 
                                 1, 
-                                function(i)paste0("$r=$",random_rate[r_levels[i]])),
+                                function(i)paste0("$r$=",random_rate[r_levels[i]])),
                           "GLB")
-results_df <- cbind("Inclusion by optimal set" = treatment_labels, results_df)  
-total_row <- c(paste0("Coverage ($\\alpha$ = ", alpha, ")"), cov_unif)
-width_row <- c("Mean cardinality", mean_width)
-spv_row <- c("Set-policy value (SPV)", spv)
+results_df <- cbind(" " = treatment_labels, results_df)  
+total_row <- c(paste0("Coverage"), cov_unif)
+width_row <- c("$E[|\\hat{C}_{n}^{\\alpha}(X_{i})|]$", mean_width)
+spv_row <- c("SPV", spv)
 
 
 results_df <- rbind(results_df, total_row, width_row, spv_row)
