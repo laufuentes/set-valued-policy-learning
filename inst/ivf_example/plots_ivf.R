@@ -489,6 +489,7 @@ for (t in 1:dim(heatmaps_r)[5]){
     plots_completed[[i]] <- gridExtra::arrangeGrob(grobs = plots, 
                                                    nrow = 1, 
                                                    ncol = 3, 
+                                                   widths = c(1, 1, 1.42),
                                                    top = paste0("Alpha = ", alphas[i]))
   }
   multi_page <- gridExtra::marrangeGrob(grobs = plots_completed, 
