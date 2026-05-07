@@ -112,7 +112,7 @@ colnames(results_df) <- c("OCP",
                           "GLB")
 results_df <- cbind(" " = treatment_labels, results_df)  
 total_row <- c(paste0("Coverage"), cov_unif)
-width_row <- c("$E[|\\hat{C}_{n}^{\\alpha}(X_{i})|]$", mean_width)
+width_row <- c("$E[|C_{n}^{\\alpha}(X_{i})|]$", mean_width)
 spv_row <- c("SPV", spv)
 
 
